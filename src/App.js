@@ -1,22 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
+import app from './firebase';
+import { getDatabase, ref, push, set } from 'firebase/database';
+
+const database = getDatabase(app);
+const dbRef = ref(database);
+const userRef = ref(database, '/users')
 
 function App() {
+  
+  const testFirebaseConfig = () =>{
+    const userObject = {
+      id: 1,
+      name: "nicole",
+      age: 36
+    }
+
+    set(userRef, userObject);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
+      <header>
+        <h1>Job Application Tracker</h1>
+        <p>Welcome! Organize all your job application in one place. <br/>
+        Add, update, or delete application from the Modify Application section.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <button onClick={testFirebaseConfig}>test</button>
       </header>
     </div>
   );
