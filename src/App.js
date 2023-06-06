@@ -20,7 +20,7 @@ function App() {
   // }
 
   return (
-    <div className="App">
+    <div className="App wrapper">
       <header>
         <h1>Job Application Tracker</h1>
         <p>Welcome! Organize all your job application in one place. <br/>

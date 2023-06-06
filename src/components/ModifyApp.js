@@ -7,7 +7,7 @@ const ModifyApp = () =>{
     const [startDate,setStartDate] = useState(new Date());
 
     return(
-        <section>
+        <section className="modify">
             <h2>Modify Applications</h2>
             <form>
                 <input placeholder="Row ID"/>
@@ -25,7 +25,7 @@ const ModifyApp = () =>{
                     <option value="rejected">Rejected</option>
                 </select>
                 <button className="createBtn">Create</button>
-                <div>
+                <div className="row">
                     <label>Row</label>
                     <select>
                         <option selected="true" disabled="disabled">Select</option>
