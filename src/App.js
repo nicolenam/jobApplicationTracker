@@ -23,7 +23,7 @@ function App() {
     <div className="App wrapper">
       <header>
         <h1>Job Application Tracker</h1>
-        <p>Welcome! Organize all your job application in one place. <br/>
+        <p className="intro">Welcome! Organize all your job application in one place. <br/>
         Add, update, or delete application from the Modify Application section.
         </p>
       </header>

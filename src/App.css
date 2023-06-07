@@ -65,6 +65,11 @@ body {
 	margin: 50px auto;
 }
 
+.intro{
+	margin-bottom: 30px;
+	line-height: 1.5;
+}
+
 h1, h2 {
 	font-weight: 700;
 	text-align: center;
@@ -77,6 +82,7 @@ h1{
 
 h2{
 	font-size: 1.2rem;
+	margin-bottom: 20px;
 }
 
 p{
@@ -86,6 +92,7 @@ p{
 main{
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 40px;
 }
 
 .modify{
@@ -122,4 +129,25 @@ button{
 .row label{
 	width: 100px;
 	text-align: left;
+}
+
+.applicationTable{
+	background-color: #fff;
+	width: 65%;
+	padding: 50px;
+}
+
+table{
+	width: 100%;
+	font-size: 1rem;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: 8px;
+}
+
+tr:nth-child(even) {
+	background-color: #dddddd;
 }
