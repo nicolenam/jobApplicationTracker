@@ -2,7 +2,7 @@ import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import app from './../firebase';
-import { getDatabase, ref, set, push } from 'firebase/database';
+import { getDatabase, ref, push } from 'firebase/database';
 
 const database = getDatabase(app);
 const jobRef = ref(database, '/jobs');

@@ -1,20 +1,53 @@
 import app from './../firebase';
-import { getDatabase, ref, get, onValue } from 'firebase/database';
-import { useState } from 'react';
+import { getDatabase, ref, onValue } from 'firebase/database';
+import { useState, useEffect } from 'react';
 
 const database = getDatabase(app);
 const jobRef = ref(database, '/jobs');
 
 const Applications = () =>{
     
-    const [jobs, setJobs] = useState([]);
+    const [jobsArray, setJobsArray] = useState([]);
 
-    onValue(jobRef, (data) => {
+    const addJobToArray = (jobs) =>{
 
-        console.log(data.val());
-      
+        const newJobsArray = [];
 
-    });
+        for(let key in jobs){
+            if (jobs.hasOwnProperty(key)) {
+                const job = jobs[key];
+
+                newJobsArray.push({
+                    key: key,
+                    id: job.id,
+                    company: job.company,
+                    position: job.position,
+                    status: job.status,
+                    url: job.url
+                });
+            }
+        }
+
+        setJobsArray((prev) => [...prev, ...newJobsArray]);
+    }
+
+    useEffect(()=>{
+
+        const fetchData = () =>{
+
+            onValue(jobRef, (data) => {
+
+                const jobs = data.val();
+                addJobToArray(jobs);
+            });
+        }
+        fetchData();
+
+    },[]);
+
+    useEffect(()=>{
+        console.log("adding more", jobsArray);
+    },[jobsArray]);
 
     return(
         <section className="applicationTable">
@@ -27,6 +60,7 @@ const Applications = () =>{
                         <th>position</th>
                         <th>date applied</th>
                         <th>status</th>
+                        <th>actions</th>
                     </tr>
                 </thead>
                 <tbody>
