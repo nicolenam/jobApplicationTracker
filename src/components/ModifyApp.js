@@ -15,7 +15,7 @@ const ModifyApp = () =>{
     const [name, setName] = useState("");
     const [position, setPosition] = useState("");
     const [url, setUrl] = useState("");
-    const [selectedOption, setSelectedOption] = useState("status");
+    const [selectedOption, setSelectedOption] = useState("");
     const [rowSelect, setRowSelect] = useState("select");
 
     const handleChange = (e) =>{
@@ -76,8 +76,8 @@ const ModifyApp = () =>{
                 <input placeholder="Application URL" name="url" onChange={handleChange} required />
                 <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} required />
                 <label className="sr-only">Status</label>
-                <select onChange={handleOptionChange} value={selectedOption} required>
-                    <option value="status" disabled>Status</option>
+                <select onChange={handleOptionChange} required defaultValue="">
+                    <option value="" disabled>Status</option>
                     <option value="wishlist">Wishlist</option>
                     <option value="applied">Applied</option>
                     <option value="interview">Interview</option>
