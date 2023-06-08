@@ -1,4 +1,21 @@
+import app from './../firebase';
+import { getDatabase, ref, get, onValue } from 'firebase/database';
+import { useState } from 'react';
+
+const database = getDatabase(app);
+const jobRef = ref(database, '/jobs');
+
 const Applications = () =>{
+    
+    const [jobs, setJobs] = useState([]);
+
+    onValue(jobRef, (data) => {
+
+        console.log(data.val());
+      
+
+    });
+
     return(
         <section className="applicationTable">
             <h2>Job Applications</h2>
@@ -10,17 +27,11 @@ const Applications = () =>{
                         <th>position</th>
                         <th>date applied</th>
                         <th>status</th>
-                        <th>actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>1</td>
-                        <td>Loblaw Digital</td>
-                        <td>Front end developer</td>
-                        <td>6/6'23</td>
-                        <td>applied</td>
-                        <td>open application</td>
+                 
                     </tr>
                 </tbody>
             </table>

@@ -1,11 +1,6 @@
 import './App.css';
-import app from './firebase';
-import { getDatabase, ref, set } from 'firebase/database';
 import Applications from './components/Applications';
 import ModifyApp from './components/ModifyApp';
-
-const database = getDatabase(app);
-const userRef = ref(database, '/users')
 
 function App() {
   

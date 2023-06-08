@@ -1,6 +1,11 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import app from './../firebase';
+import { getDatabase, ref, set, push } from 'firebase/database';
+
+const database = getDatabase(app);
+const jobRef = ref(database, '/jobs');
 
 const ModifyApp = () =>{
 
@@ -11,6 +16,7 @@ const ModifyApp = () =>{
     const [position, setPosition] = useState("");
     const [url, setUrl] = useState("");
     const [selectedOption, setSelectedOption] = useState("status");
+    const [rowSelect, setRowSelect] = useState("select");
 
     const handleChange = (e) =>{
       
@@ -27,18 +33,39 @@ const ModifyApp = () =>{
     }
 
     const handleOptionChange = (e) =>{
-        setSelectedOption(e.target.value);
+
+        if(e.target.value === "rowId"){
+            setRowSelect(e.target.value);
+        }else{
+            setSelectedOption(e.target.value);
+        }
+
     }
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        console.log("here",id, name, position, url);
+        addToFirebase(id,name,position,url,selectedOption);
+    }
+
+    const addToFirebase = (id,name,position,url,status) =>{
+
+        const jobObj = {
+            id: id,
+            company: name, 
+            position: position, 
+            date: startDate,
+            status: status,
+            url: url 
+        }
+
+        push(jobRef, jobObj);
+
     }
 
     return(
         <section className="modify">
             <h2>Modify Applications</h2>
-            <form  onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <input type="number" min="1" placeholder="Row ID" name="id" onChange={handleChange} required />
                 <input placeholder="Company Name" name="name" onChange={handleChange} required />
                 <input placeholder="Position" name="position" onChange={handleChange} required />
@@ -56,9 +83,9 @@ const ModifyApp = () =>{
                 <button className="createBtn">Create</button>
                 <div className="row">
                     <label>Row</label>
-                    <select>
-                        <option selected="true" disabled="disabled">Select</option>
-                        <option>Row ID's</option>
+                    <select value={rowSelect} onChange={handleOptionChange}>
+                        <option value="select" disabled>Select</option>
+                        <option value="rowId">Row ID's</option>
                     </select>
                 </div>
                 <button className="updateBtn">Update</button>
