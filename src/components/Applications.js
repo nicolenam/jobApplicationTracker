@@ -23,12 +23,13 @@ const Applications = () =>{
                     company: job.company,
                     position: job.position,
                     status: job.status,
-                    url: job.url
+                    url: job.url,
+                    date: job.date
                 });
             }
         }
-
-        setJobsArray((prev) => [...prev, ...newJobsArray]);
+        console.log(newJobsArray);
+        setJobsArray(newJobsArray);
     }
 
     useEffect(()=>{
@@ -47,7 +48,11 @@ const Applications = () =>{
 
     useEffect(()=>{
         console.log("adding more", jobsArray);
-    },[jobsArray]);
+    },[]);
+
+    const handleClick = (e) =>{
+        console.log(e.target.id);
+    }
 
     return(
         <section className="applicationTable">
@@ -64,9 +69,22 @@ const Applications = () =>{
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                 
-                    </tr>
+                    {
+                        jobsArray.map((job)=>{
+                            return(
+                                <tr key={job.key}>
+                                    <td>{job.id}</td>
+                                    <td>{job.company}</td>
+                                    <td>{job.position}</td>
+                                    <td>{job.date}</td>
+                                    <td>{job.status}</td>
+                                    <td>
+                                        <button id={job.key} onClick={handleClick}>Click me</button>
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
                 </tbody>
             </table>
         </section>

@@ -44,10 +44,13 @@ const ModifyApp = () =>{
 
     const handleSubmit = (e) =>{
         e.preventDefault();
-        addToFirebase(id,name,position,url,selectedOption);
+        addToFirebase(id,name,position,url,selectedOption,startDate);
     }
-
-    const addToFirebase = (id,name,position,url,status) =>{
+    
+    const addToFirebase = (id,name,position,url,status,date) =>{
+        
+        console.log("date?",date)
+        const formatedDate = date.toISOString().split("T")[0];
 
         const jobObj = {
             id: id,
@@ -55,7 +58,8 @@ const ModifyApp = () =>{
             position: position, 
             date: startDate,
             status: status,
-            url: url 
+            url: url,
+            date: formatedDate
         }
 
         push(jobRef, jobObj);
