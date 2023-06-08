@@ -110,7 +110,6 @@ form{
 }
 
 input{
-	display: block;
 	margin-bottom: 20px;
 	border: 1.7px solid #bbbcc1;
 }
@@ -119,6 +118,29 @@ button{
 	display: block;
 	width: 50%;
 	margin: 10px;
+	border: none;
+	border-radius: 3px;
+}
+
+.createBtn{
+	background-color: #027f5f;
+	color: #fff;
+	width: 100%;
+	padding: 5px 10px;
+}
+
+.updateBtn{
+	background-color: #003768;
+	color: #fff;
+	width: 100%;
+	padding: 5px 10px;
+}
+
+.deleteBtn{
+	background-color: #d70e22;
+	color: #fff;
+	width: 100%;
+	padding: 5px 10px;
 }
 
 .row{

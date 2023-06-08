@@ -10,6 +10,7 @@ const jobRef = ref(database, '/jobs');
 const ModifyApp = () =>{
 
     const [startDate, setStartDate] = useState(new Date());
+    const today = new Date();
 
     const [id, setId] = useState(1);
     const [name, setName] = useState("");
@@ -49,14 +50,12 @@ const ModifyApp = () =>{
     
     const addToFirebase = (id,name,position,url,status,date) =>{
         
-        console.log("date?",date)
         const formatedDate = date.toISOString().split("T")[0];
 
         const jobObj = {
             id: id,
             company: name, 
             position: position, 
-            date: startDate,
             status: status,
             url: url,
             date: formatedDate
@@ -70,11 +69,11 @@ const ModifyApp = () =>{
         <section className="modify">
             <h2>Modify Applications</h2>
             <form onSubmit={handleSubmit}>
-                <input type="number" min="1" placeholder="Row ID" name="id" onChange={handleChange} required />
+                <input type="number" min="1" placeholder="1" name="id" onChange={handleChange} required />
                 <input placeholder="Company Name" name="name" onChange={handleChange} required />
                 <input placeholder="Position" name="position" onChange={handleChange} required />
                 <input placeholder="Application URL" name="url" onChange={handleChange} required />
-                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} required />
+                <DatePicker selected={startDate} maxDate={today} onChange={(date) => setStartDate(date)} required />
                 <label className="sr-only">Status</label>
                 <select onChange={handleOptionChange} required defaultValue="">
                     <option value="" disabled>Status</option>

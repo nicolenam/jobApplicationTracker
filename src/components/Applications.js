@@ -28,7 +28,6 @@ const Applications = () =>{
                 });
             }
         }
-        console.log(newJobsArray);
         setJobsArray(newJobsArray);
     }
 
@@ -44,10 +43,6 @@ const Applications = () =>{
         }
         fetchData();
 
-    },[]);
-
-    useEffect(()=>{
-        console.log("adding more", jobsArray);
     },[]);
 
     const handleClick = (e) =>{
