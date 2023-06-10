@@ -12,7 +12,7 @@ const ModifyApp = () =>{
     const [startDate, setStartDate] = useState(new Date());
     const today = new Date();
 
-    const [id, setId] = useState(1);
+    const [id, setId] = useState(null);
     const [name, setName] = useState("");
     const [position, setPosition] = useState("");
     const [url, setUrl] = useState("");
@@ -40,7 +40,6 @@ const ModifyApp = () =>{
         }else{
             setSelectedOption(e.target.value);
         }
-
     }
 
     const handleSubmit = (e) =>{
@@ -63,20 +62,34 @@ const ModifyApp = () =>{
 
         push(jobRef, jobObj);
 
+        handleReset();
+      
+    }
+
+    const handleReset = () =>{
+
+        setName("");
+        setId("");
+        setPosition("");
+        setUrl("");
+        setSelectedOption(""); 
+        setRowSelect(""); 
+    
+
     }
 
     return(
         <section className="modify">
             <h2>Modify Applications</h2>
             <form onSubmit={handleSubmit}>
-                <input type="number" min="1" placeholder="1" name="id" onChange={handleChange} required />
-                <input placeholder="Company Name" name="name" onChange={handleChange} required />
-                <input placeholder="Position" name="position" onChange={handleChange} required />
-                <input placeholder="Application URL" name="url" onChange={handleChange} required />
+                <input type="number" placeholder="Row ID" name="id" onChange={handleChange} value={id} required />
+                <input placeholder="Company Name" name="name" onChange={handleChange} value={name} required />
+                <input placeholder="Position" name="position" onChange={handleChange} value={position} required />
+                <input placeholder="Application URL" name="url" onChange={handleChange} value={url} required />
                 <DatePicker selected={startDate} maxDate={today} onChange={(date) => setStartDate(date)} required />
                 <label className="sr-only">Status</label>
-                <select onChange={handleOptionChange} required defaultValue="">
-                    <option value="" disabled>Status</option>
+                <select onChange={handleOptionChange} defaultValue="" required >
+                    <option value={selectedOption} disabled>Status</option>
                     <option value="wishlist">Wishlist</option>
                     <option value="applied">Applied</option>
                     <option value="interview">Interview</option>
