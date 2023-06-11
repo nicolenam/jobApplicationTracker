@@ -12,11 +12,11 @@ const ModifyApp = () =>{
     const [startDate, setStartDate] = useState(new Date());
     const today = new Date();
 
-    const [id, setId] = useState(null);
+    const [id, setId] = useState("");
     const [name, setName] = useState("");
     const [position, setPosition] = useState("");
     const [url, setUrl] = useState("");
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState("status");
     const [rowSelect, setRowSelect] = useState("select");
 
     const handleChange = (e) =>{
@@ -72,24 +72,29 @@ const ModifyApp = () =>{
         setId("");
         setPosition("");
         setUrl("");
-        setSelectedOption(""); 
-        setRowSelect(""); 
-    
+        setSelectedOption("status"); 
+        setRowSelect("select"); 
+        setStartDate(new Date());
 
     }
 
     return(
         <section className="modify">
             <h2>Modify Applications</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="number" placeholder="Row ID" name="id" onChange={handleChange} value={id} required />
-                <input placeholder="Company Name" name="name" onChange={handleChange} value={name} required />
-                <input placeholder="Position" name="position" onChange={handleChange} value={position} required />
+            <form onSubmit={handleSubmit} name="form">
+                <label className="sr-only">Row Id</label>
+                    <input type="number" placeholder="Row ID" min="1" name="id" onChange={handleChange} value={id} required />
+                <label className="sr-only">Company Name</label>
+                    <input placeholder="Company Name" name="name" onChange={handleChange} value={name} required />
+                <label className="sr-only">Position</label>
+                    <input placeholder="Position" name="position" onChange={handleChange} value={position} required />
+                <label className="sr-only">URL</label>
                 <input placeholder="Application URL" name="url" onChange={handleChange} value={url} required />
-                <DatePicker selected={startDate} maxDate={today} onChange={(date) => setStartDate(date)} required />
+                <label className="sr-only">Date</label>
+                    <DatePicker selected={startDate} maxDate={today} onChange={(date) => setStartDate(date)} required />
                 <label className="sr-only">Status</label>
-                <select onChange={handleOptionChange} defaultValue="" required >
-                    <option value={selectedOption} disabled>Status</option>
+                <select onChange={handleOptionChange} value={selectedOption} required>
+                    <option value="status" disabled>Status</option>
                     <option value="wishlist">Wishlist</option>
                     <option value="applied">Applied</option>
                     <option value="interview">Interview</option>
