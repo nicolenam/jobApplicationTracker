@@ -1,9 +1,10 @@
 import app from './../firebase';
-import { getDatabase, ref, onValue } from 'firebase/database';
+import { getDatabase, ref, onValue, set } from 'firebase/database';
 import { useState, useEffect } from 'react';
 
 const database = getDatabase(app);
 const jobRef = ref(database, '/jobs');
+const idRef = ref(database, '/lastId');
 
 const Applications = () =>{
     
@@ -26,9 +27,15 @@ const Applications = () =>{
                     url: job.url,
                     date: job.date
                 });
+                trackLastId(job.id);
             }
         }
         setJobsArray(newJobsArray);
+    }
+
+    const trackLastId = (id) =>{
+        console.log(id)
+
     }
 
     useEffect(()=>{
