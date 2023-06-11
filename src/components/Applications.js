@@ -34,8 +34,8 @@ const Applications = () =>{
     }
 
     const trackLastId = (id) =>{
-        console.log(id)
-
+        
+        set(idRef, id)
     }
 
     useEffect(()=>{

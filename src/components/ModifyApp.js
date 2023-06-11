@@ -1,18 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import app from './../firebase';
-import { getDatabase, ref, push, get } from 'firebase/database';
+import { getDatabase, ref, push, onValue} from 'firebase/database';
 
 const database = getDatabase(app);
 const jobRef = ref(database, '/jobs');
+const idRef = ref(database, '/lastId');
 
 const ModifyApp = () =>{
 
     const [startDate, setStartDate] = useState(new Date());
     const today = new Date();
 
-    const [id, setId] = useState("");
+    const [id, setId] = useState();
     const [name, setName] = useState("");
     const [position, setPosition] = useState("");
     const [url, setUrl] = useState("");
@@ -66,12 +67,26 @@ const ModifyApp = () =>{
       
     }
 
+    useEffect(()=>{
+        
+        const updateLastId = () =>{
+
+            onValue(idRef, (data)=>{
+                if(data.val()){
+                    setId(data.val() + 1);
+                }else{
+                    setId(1);
+                }
+            })
+        }
+        
+        updateLastId();
+    })
   
 
     const handleReset = () =>{
 
         setName("");
-        setId("");
         setPosition("");
         setUrl("");
         setSelectedOption("status"); 
@@ -85,7 +100,7 @@ const ModifyApp = () =>{
             <h2>Modify Applications</h2>
             <form onSubmit={handleSubmit} name="form">
                 <label className="sr-only">Row Id</label>
-                    <input type="number" placeholder="Row ID" min="1" name="id" onChange={handleChange} value={id} required />
+                    <input type="number" placeholder="Row ID" name="id" onChange={handleChange} value={id} readOnly />
                 <label className="sr-only">Company Name</label>
                     <input placeholder="Company Name" name="name" onChange={handleChange} value={name} required />
                 <label className="sr-only">Position</label>
